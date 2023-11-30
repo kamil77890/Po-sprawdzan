@@ -25,6 +25,29 @@ def get_user(user_id):
         return jsonify(user), 200
     return jsonify(), 404
 
+@app.route("/users", methods=["POST"])
+def create_user():
+    data = request.get_json()
+    if "name" in data and "lastname" in data:
+        new_user = {
+            "id": len(users) + 1,
+            "name": data["name"],
+            "lastname": data["lastname"]
+        }
+        users.append(new_user)
+        return jsonify({"id": new_user["id"]}), 201
+    return jsonify(), 400
+
+@app.route("/users/<int:user_id>", methods=["PATCH"])
+def update_user_partial(user_id):
+    user = find_user_by_id(user_id)
+    if user:
+        data = request.get_json()
+        user["name"] = data.get("name", user["name"])
+        user["lastname"] = data.get("lastname", user["lastname"])
+        return "easterEgg", 204
+    return jsonify(), 404
+
 def find_user_by_id(user_id):
     for user in users:
         if user["id"] == user_id:
