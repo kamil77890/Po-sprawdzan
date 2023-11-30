@@ -10,9 +10,6 @@ users = [
     {"id": 5, "name": "Klaudia", "lastname": "Tyc"}
 ]
 
-@app.route("/home", methods=["POST"])
-def hello():
-    return "Hello World!"
 
 @app.route("/users", methods=["GET"])
 def get_user_list():
@@ -80,5 +77,7 @@ def find_user_by_id(user_id):
             return user
     return None
 
+
 if __name__ == "__main__":
+    app.config['TESTING'] = True
     app.run("localhost", 8083)
