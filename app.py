@@ -45,7 +45,17 @@ def update_user_partial(user_id):
         data = request.get_json()
         user["name"] = data.get("name", user["name"])
         user["lastname"] = data.get("lastname", user["lastname"])
-        return "easterEgg", 204
+        return "easterEgg +1 za spostegawczosć i na sprawdzianie ;)", 204
+    return jsonify(), 404
+
+@app.route("/users/<int:user_id>", methods=["PUT"])
+def update_user(user_id):
+    data = request.get_json()
+    user = find_user_by_id(user_id)
+    if user:
+        user["name"] = data.get("name", user["name"])
+        user["lastname"] = data.get("lastname", user["lastname"])
+        return "", 204
     return jsonify(), 404
 
 def find_user_by_id(user_id):
@@ -54,5 +64,5 @@ def find_user_by_id(user_id):
             return user
     return None
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     app.run("localhost", 8083)
