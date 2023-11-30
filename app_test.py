@@ -31,7 +31,7 @@ def test_get_user_with_no_user(client: FlaskClient) -> None:
     assert actual.status_code == NOT_FOUND
 
 def test_create_user(client: FlaskClient) -> None:
-    new_data = {"name": "abc", "lastname": "def"}
+    new_data = {"name": "pan", "lastname": "najleprzy_;)"}
     actual = client.post('/users', json=new_data)
     assert actual.status_code == CREATED
 
@@ -40,7 +40,6 @@ def test_update_user(client: FlaskClient) -> None:
     new_data = {"name": "Jane", "lastname": "Doe"}
     actual = client.patch(f"/users/{user_id}", json=new_data)
     assert actual.status_code == STATUS_OK
-
 
 def test_delete_user(client: FlaskClient) -> None:
     user_id = 7
